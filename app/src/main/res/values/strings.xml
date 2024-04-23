@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">JIUR</string>
+    <string name="enter">确定</string>
+    <string name="ver_img">http://aiwan.eatuo.com:88/</string>
+
+    <string name="api_analy_tik">https://api.pearktrue.cn/api/video/api.php?url=</string>
+
+    <string name="woobx">https://ol.woobx.cn/</string>
+    <string name="my_base_url">http://47.108.232.10:8080</string>
+    <string name="service_avatar">https://service.avatar.adesk.com/v1/avatar/avatar?</string>
+    <string name="coc">http://47.108.232.10:8080/forms/</string>
+    <string name="exter_path">/storage/emulated/0/JiuR/</string>
+    <string name="neihan">https://dayu.qqsuu.cn/neihanduanzi/apis.php?type=json</string>
+    <!--主界面-->
+    <string name="btn_remove_bg">AI抠图</string>
+    <string name="copy_to_game">复制进游戏</string>
+    <string name="input__formation_link">请输入阵型链接</string>
+
+    <string name="bing">https://bing.com/</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="formation">使用阵型</string>
+    <string name="tools">工具</string>
+    <string name="analys">解析</string>
+    <string name="woobx_tip">本页面嵌入一个木函官网https://ol.woobx.cn\n 本软件内产生一切与一个木函官网无关</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="input_account">请输入Zepplife账号</string>
+    <string name="input_password">请输入Zepplife密码</string>
+    <string name="step">请输入您的步数(最好低于85000)</string>
+    <string name="my_list">个人信息</string>
+    <string name="chat_gpt">http://h5ma.cn/chatgking2024</string>
+    <string name="chat_tip">本页面嵌入网址https://chatgpt.com\n 本软件内产生一切与该官网无关</string>
+    <string name="title_wall">壁纸</string>
+    <string name="switch_town_hall">选择大本营等级</string>
+
+    <string-array name="home_level">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+    </string-array>
+</resources>

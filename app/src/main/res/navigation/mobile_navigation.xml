@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navigation_wall_paper_category"
+    android:id="@+id/mobile_navigation">
+
+    <fragment
+        android:id="@+id/navigation_music"
+        android:name="cn.swust.jiur.fragment.MusicFragment"
+        android:label="@string/title_wall"
+        tools:layout="@layout/fragment_music" />
+
+    <fragment
+        android:id="@+id/navigation_article"
+        android:name="cn.swust.jiur.fragment.ArticleFragment"
+        tools:layout="@layout/fragment_article" />
+
+    <fragment
+        android:id="@+id/navigation_analy_vedio"
+        android:name="cn.swust.jiur.fragment.AnalyVedioFragment"
+        tools:layout="@layout/fragment_analytik"/>
+    <fragment
+        android:id="@+id/navigation_picture_category"
+        android:name="cn.swust.jiur.fragment.PictureCategoryFragment"
+        tools:layout="@layout/fragment_profile_catagory" >
+        <action
+            android:id="@+id/action_to_navigation_profile"
+            app:destination="@id/navigation_profile" >
+            <argument
+                android:name="profileId"
+                app:argType="string"
+                android:defaultValue="55f7d54e69401b2286e9e498"
+                app:nullable="true" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="cn.swust.jiur.fragment.ProfileFragment"
+        tools:layout="@layout/fragment_profile_catagory">
+
+        <argument
+            android:name="profileId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="profileCatName"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="个性男头" />
+    </fragment>
+</navigation>

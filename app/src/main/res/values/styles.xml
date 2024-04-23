@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    设置选中颜色-->
+    <style name="Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimary</item>
+    </style>
+    <!--圆角图片样式-->
+    <style name="roundedCornerImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <!--圆形图片样式-->
+    <style name="circleCornerImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <!--圆角悬浮按钮样式-->
+    <style name="roundedCornerFabStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">26dp</item>
+    </style>
+
+    <!--自定义BottomNavigationView样式-->
+    <style name="CustomBottomNavStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item> <!-- 设置所需的高度 -->
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="itemTextColor">?attr/colorPrimary</item>
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemRippleColor">?attr/colorSecondaryContainer</item>
+        <item name="itemIconTint">@drawable/item_select</item>
+        <item name="itemActiveIndicatorStyle">@style/Custom.Indicator</item>
+    </style>
+    <!--浮动文本样式-->
+    <style name="hintAppearence" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="text_with_font_24">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/mxj</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <!--主页主要功能文字样式-->
+    <style name="main_relay_text" parent="text_with_font_24">
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <!--主页主要功能相对布局样式1-->
+    <style name="main_relay_style" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/main_relay_item_width</item>
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:background">@drawable/radius</item>
+        <item name="android:backgroundTint">?attr/colorSurface</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:layout_marginStart">@dimen/margin_lr</item>
+    </style>
+    <!--主页主要功能相对布局样式2-->
+    <style name="main_relay_style3" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:layout_marginStart">@dimen/margin_lr</item>
+        <item name="android:layout_marginEnd">@dimen/margin_lr</item>
+        <item name="android:layout_marginTop">@dimen/margin_item</item>
+    </style>
+    <!--主页主要功能相对布局样式2-->
+    <style name="main_relay_style2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:background">@drawable/radius</item>
+        <item name="elevation">5dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_item</item>
+    </style>
+    <!--主页功能文字样式-->
+    <style name="main_function_text_style" parent="text_with_font_24">
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="img_function">
+        <item name="android:layout_width">@dimen/midum_icon</item>
+        <item name="android:layout_height">@dimen/midum_icon</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="music_time_text_style">
+        <item name="android:layout_width">@dimen/icon</item>
+        <item name="android:layout_height">@dimen/midum_icon</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--主页功能线性布局样式-->
+    <style name="main_linear_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:layout_marginStart">@dimen/margin_lr</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <!--主页功能线性布局样式-->
+    <style name="main_linear_style2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:layout_marginStart">@dimen/margin_item</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <!--主页Cardview样式-->
+    <style name="main_cardview_style">
+        <item name="android:layout_height">86dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:stateListAnimator">@animator/click_anim</item>
+        <item name="android:layout_marginTop">@dimen/margin_lr</item>
+        <item name="cardCornerRadius">@dimen/card_content_padding</item>
+        <item name="contentPadding">@dimen/card_content_padding</item>
+        <item name="cardElevation">5dp</item>
+    </style>
+
+    <style name="text_h1_style">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="text_h3_style">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="text_h2_style">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="fragment_more_text_style" parent="text_h2_style">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginStart">@dimen/margin_lr</item>
+    </style>
+
+    <style name="Widget.JIUR.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Widget.JIUR.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">@color/lavender</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="editAccountStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/edit_account_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:layout_marginStart">@dimen/edit_margin_lr</item>
+        <item name="android:layout_marginEnd">@dimen/edit_margin_lr</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="boxCornerRadiusTopStart">@dimen/edit_account_radus</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/edit_account_radus</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/edit_account_radus</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/edit_account_radus</item>
+        <item name="endIconTint">?attr/colorPrimary</item>
+        <item name="startIconTint">?attr/colorPrimary</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="songNameTextStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="text_collapse_title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="text_expand_style">
+        <item name="android:textSize">28sp</item>
+        <item name="lineSpacing">@dimen/margin_item</item>
+    </style>
+
+    <style name="Widget.MySpinner" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="android:dropDownVerticalOffset">-80dp</item> <!-- 向上偏移 -->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
+        <item name="android:dropDownHeight">wrap_content</item>
+    </style>
+</resources>

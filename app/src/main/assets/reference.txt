@@ -1,0 +1,7 @@
+# 仅供个人学习使用🔔
+### 1. 图标iconfont
+### 2. 部落冲突人物素材(fankit.supercell.com)
+### 3. 微信运动 https://api.ooomn.com/api/mi
+### 4. 一言 https://v1.hitokoto.cn
+### 5. 每日新闻https://zj.v.api.aa1.cn/api/60s
+### 6. 点歌https://zj.v.api.aa1.cn/api/qqmusic

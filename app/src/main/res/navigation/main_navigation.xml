@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="cn.swust.jiur.fragment.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/to_more"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_home_to_pictrue"
+            app:destination="@id/navigation_picture"
+            >
+        </action>
+        <action
+            android:id="@+id/action_home_to_profile_category"
+            app:destination="@id/navigation_picture_category">
+            <argument
+                android:name="category_type"
+                app:argType="string"
+                android:defaultValue="壁纸库"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="cn.swust.jiur.fragment.MoreFragment"
+        tools:layout="@layout/fragment_more">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_hotpoint"
+        android:name="cn.swust.jiur.fragment.HotpointFragment"
+        tools:layout="@layout/fragment_hotpoint">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_about"
+        android:name="cn.swust.jiur.fragment.AboutFragment"
+        tools:layout="@layout/fragment_about">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_picture"
+        android:name="cn.swust.jiur.fragment.PictrueFragment"
+        tools:layout="@layout/fragment_pictrue">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_today_of_history"
+        android:name="cn.swust.jiur.fragment.TodayOfHistoryFragment"
+        tools:layout="@layout/fragment_today_of_history">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_analy_picture"
+        android:name="cn.swust.jiur.fragment.PictureAnalyFragment"
+        tools:layout="@layout/fragment_picture_analy">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_form_list"
+        android:name="cn.swust.jiur.fragment.FormationListFragment"
+        tools:layout="@layout/fragment_formationlist">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_music"
+        android:name="cn.swust.jiur.fragment.MusicFragment"
+        android:label="@string/title_wall"
+        tools:layout="@layout/fragment_music" />
+
+    <fragment
+        android:id="@+id/navigation_article"
+        android:name="cn.swust.jiur.fragment.ArticleFragment"
+        tools:layout="@layout/fragment_article" />
+
+    <fragment
+        android:id="@+id/navigation_analy_vedio"
+        android:name="cn.swust.jiur.fragment.AnalyVedioFragment"
+        tools:layout="@layout/fragment_analytik"/>
+    <fragment
+        android:id="@+id/navigation_picture_category"
+        android:name="cn.swust.jiur.fragment.PictureCategoryFragment"
+        tools:layout="@layout/fragment_profile_catagory" >
+        <action
+            android:id="@+id/action_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+
+        <argument
+            android:name="profileId"
+            app:argType="string"
+            android:defaultValue="55f7d54e69401b2286e9e498" />
+        <argument
+            android:name="profileCatName"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="个性男头" />
+        <argument
+            android:name="category_type"
+            app:argType="string"
+            android:defaultValue="壁纸库"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="cn.swust.jiur.fragment.ProfileFragment"
+        tools:layout="@layout/fragment_profile_catagory">
+
+    </fragment>
+</navigation>

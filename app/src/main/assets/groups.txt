@@ -1,0 +1,28 @@
+{
+  "data":[
+    {"groupName" : "资讯",
+    	"functionItems":[
+        {"icon":"0","name":"历史今日","fragmentId":"0"},
+        {"icon":"1","name":"实时新闻","fragmentId":"1"},
+
+				{"icon":"3","name":"随机一文","fragmentId":"3"},
+				{"icon":"11","name":"聚合热搜","fragmentId":"11"}
+      ]
+    },
+    	{"groupName" : "辅助工具",
+    	"functionItems":[
+        {"icon":"4","name":"阵型大全","fragmentId":"4"},
+        {"icon":"5","name":"文件比对","fragmentId":"5"},
+    		{"icon":"6","name":"抖音解析","fragmentId":"6"},
+    		{"icon":"10","name":"图集解析","fragmentId":"10"}
+      ]
+    },
+    {"groupName" : "娱乐",
+    	"functionItems":[
+        {"icon":"7","name":"点歌","fragmentId":"7"},
+        {"icon":"8","name":"头像库","fragmentId":"8"},
+        {"icon":"9","name":"壁纸库","fragmentId":"8"},
+      ]
+    }
+  ]
+}

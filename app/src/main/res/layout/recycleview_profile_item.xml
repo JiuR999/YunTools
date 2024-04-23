@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:padding="@dimen/margin_lr">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_profile_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/roundedCornerImageStyle" />
+
+    <TextView
+        android:id="@+id/tv_profile_catagory_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon"
+        android:background="@drawable/radius"
+        android:backgroundTint="#80000000"
+        android:gravity="center"
+        android:text="个性女头"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/img_profile_cover"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

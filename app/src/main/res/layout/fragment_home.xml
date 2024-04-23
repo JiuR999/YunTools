@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:fitsSystemWindows="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+        <Spinner
+            android:id="@+id/spinner_mode"
+            android:layout_width="72dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:dropDownWidth="100dp"
+            android:popupTheme="@style/Widget.Material3.PopupMenu.Overflow"
+            android:popupBackground="@drawable/radius"
+            android:background="@drawable/text_back"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/midum_icon"
+            android:layout_marginEnd="42dp" />
+        <TextView
+            android:id="@+id/hitokoto_text"
+            android:layout_width="142dp"
+            android:layout_height="92dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/board"
+            android:fontFamily="@font/mxj"
+            android:padding="10dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textColor="?attr/colorTertiary" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/hitokoto_text">
+            <ImageView
+                android:id="@+id/img_start_code"
+                android:layout_width="130dp"
+                android:layout_height="63dp"
+                android:layout_marginEnd="@dimen/margin_lr"
+                android:layout_marginTop="@dimen/margin_item"
+                android:visibility="gone" />
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/twotone_refresh_24"
+                android:layout_marginStart="41dp"
+                android:id="@+id/img_code_load"
+                android:visibility="gone"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/img_fresh"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="152dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/twotone_refresh_24" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/btn_margin"
+        android:layout_marginStart="@dimen/btn_margin"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        style="@style/main_relay_style"
+        android:layout_marginTop="246dp">
+        <LinearLayout
+            android:id="@+id/linear_tool"
+            style="@style/main_linear_style"
+            android:backgroundTint="@color/CustomColor3">
+            <ImageView
+                style="@style/img_function"
+                android:src="@drawable/twotone_business_center_24" />
+            <TextView
+                android:id="@+id/tv_found"
+                style="@style/main_function_text_style"
+                android:text="@string/tools" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_sport"
+            style="@style/main_linear_style"
+            android:backgroundTint="@color/CustomColor4">
+            <ImageView
+                style="@style/img_function"
+                android:src="@drawable/sport"/>
+            <TextView
+                style="@style/main_function_text_style"
+                android:text="步数修改" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_coc"
+            style="@style/main_linear_style"
+            android:backgroundTint="@color/CustomColor7">
+            <ImageView
+                style="@style/img_function"
+                android:src="@drawable/shield"/>
+            <TextView
+                android:id="@+id/tv_coc"
+                style="@style/main_function_text_style"
+                android:text="@string/formation" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="272dp"
+        android:layout_height="328dp"
+        android:src="@drawable/valentineaq_marketing" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_function_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/linear_top"
+            android:layout_marginBottom="70dp"/>
+    <WebView
+        android:id="@+id/start_code_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+</RelativeLayout>

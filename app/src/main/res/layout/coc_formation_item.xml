@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="14dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/margin_lr"
+        app:cardUseCompatPadding="true"
+        app:strokeWidth="0dp">
+        <RelativeLayout
+            android:id="@+id/form_list_relay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_formation"
+                android:layout_width="290dp"
+                android:layout_height="160dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_item"
+                android:scaleType="fitXY"
+                app:shapeAppearance="@style/roundedCornerImageStyle" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_form_copy"
+                android:layout_width="290dp"
+                android:layout_height="52dp"
+                android:layout_below="@id/img_formation"
+                app:elevation="@dimen/margin_item"
+                android:layout_marginTop="@dimen/margin_item"
+                android:layout_centerHorizontal="true"
+                android:text="@string/copy_to_game"
+                android:textSize="16sp"
+                android:fontFamily="@font/mxj"
+                app:icon="@mipmap/link"/>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

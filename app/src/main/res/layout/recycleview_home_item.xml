@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_home_item_title"
+        android:text="@string/title_wall"
+        android:layout_marginStart="@dimen/margin_lr"
+        style="@style/text_with_font_24"/>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/main_relay_style3"
+            app:strokeWidth="0dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="@dimen/margin_lr">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_home_functions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"/>
+        </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:collapsedTitleTextColor="?attr/colorOutline"
+            app:collapsedTitleTextAppearance="@style/text_collapse_title"
+            app:contentScrim="?attr/colorSecondaryContainer"
+            app:expandedTitleMarginStart="@dimen/margin_lr"
+            app:expandedTitleTextAppearance="@style/text_expand_style"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleCollapseMode="scale"
+            app:titleTextEllipsize="marquee">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/small_icon"
+                app:layout_collapseMode="pin"
+                app:menu="@menu/tool_bar_menu"
+                app:navigationIcon="@drawable/navigation_bar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_main_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:navGraph="@navigation/main_navigation" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        app:itemActiveIndicatorStyle="@style/Custom.Indicator"
+        app:itemIconTint="@drawable/item_select"
+        app:itemRippleColor="@color/white"
+        app:itemTextColor="?attr/colorPrimary"
+        app:labelVisibilityMode="selected"
+        app:itemPaddingBottom="1dp"
+        app:menu="@menu/bottom_item_menu" />
+    <!--        android:background="#E6EEF9"-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

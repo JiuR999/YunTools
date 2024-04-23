@@ -1,0 +1,256 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Translate.NoActionBar" parent="Theme.Material3.Light.NoActionBar">
+        <!-- 设置底部导航栏半透明，默认false黑色，设置true半透明 -->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+    <style name="Theme.Blue" parent="Theme.Translate.NoActionBar">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <!-- Primary brand color. -->
+
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+    </style>
+
+    <style name="Theme.Green" parent="Theme.Translate.NoActionBar">
+
+        <item name="colorPrimary">#5B9417</item>
+
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="colorPrimaryContainer">#C0EFB0</item>
+
+        <item name="colorOnPrimaryContainer">#044B04</item>
+
+        <item name="colorSecondary">#54634D</item>
+
+        <item name="colorOnSecondary">#FFFFFF</item>
+
+        <item name="colorSecondaryContainer">#D7E8CD</item>
+
+        <item name="colorOnSecondaryContainer">#121F0E</item>
+
+        <item name="colorTertiary">#386569</item>
+
+        <item name="colorOnTertiary">#FFFFFF</item>
+
+        <item name="colorTertiaryContainer">#BCEBEE</item>
+
+        <item name="colorOnTertiaryContainer">#002022</item>
+
+        <item name="colorError">#BA1A1A</item>
+
+        <item name="colorOnError">#FFFFFF</item>
+
+        <item name="colorErrorContainer">#FFDAD6</item>
+
+        <item name="colorOnErrorContainer">#410002</item>
+
+        <item name="android:colorBackground">#F8FBF1</item>
+
+        <item name="colorOnBackground">#191D17</item>
+
+        <item name="colorSurface">#F8FBF1</item>
+
+        <item name="colorOnSurface">#191D17</item>
+
+        <item name="colorSurfaceVariant">#DFE4D7</item>
+
+        <item name="colorOnSurfaceVariant">#43483F</item>
+
+        <item name="colorOutline">#73796E</item>
+
+        <item name="colorOutlineVariant">#C3C8BC</item>
+
+        <item name="colorSurfaceInverse">#2E322B</item>
+
+        <item name="colorOnSurfaceInverse">#EFF2E8</item>
+
+        <item name="colorPrimaryInverse">#A5D396</item>
+
+    </style>
+
+    <style name="Theme.Red" parent="Theme.Translate.NoActionBar">
+
+        <item name="colorPrimary">#BB0055</item>
+
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="colorPrimaryContainer">#FFD9DF</item>
+
+        <item name="colorOnPrimaryContainer">#3F0018</item>
+
+        <item name="colorSecondary">#75565C</item>
+
+        <item name="colorOnSecondary">#FFFFFF</item>
+
+        <item name="colorSecondaryContainer">#FFD9DF</item>
+
+        <item name="colorOnSecondaryContainer">#2B151A</item>
+
+        <item name="colorTertiary">#993F61</item>
+
+        <item name="colorOnTertiary">#FFFFFF</item>
+
+        <item name="colorTertiaryContainer">#FFD9E2</item>
+
+        <item name="colorOnTertiaryContainer">#3E001D</item>
+
+        <item name="colorError">#BA1A1A</item>
+
+        <item name="colorOnError">#FFFFFF</item>
+
+        <item name="colorErrorContainer">#FFDAD6</item>
+
+        <item name="colorOnErrorContainer">#410002</item>
+
+        <item name="android:colorBackground">#FFFBFF</item>
+
+        <item name="colorOnBackground">#201A1B</item>
+
+        <item name="colorSurface">#FFFBFF</item>
+
+        <item name="colorOnSurface">#201A1B</item>
+
+        <item name="colorSurfaceVariant">#F3DDE0</item>
+
+        <item name="colorOnSurfaceVariant">#524346</item>
+
+        <item name="colorOutline">#847375</item>
+
+        <item name="colorOutlineVariant">#FAEEEF</item>
+
+        <item name="colorSurfaceInverse">#FAEEEF</item>
+
+        <item name="colorOnSurfaceInverse">#352F30</item>
+
+        <item name="colorPrimaryInverse">#FFB1C2</item>
+
+    </style>
+
+    <style name="Theme.Lavender" parent="Theme.Translate.NoActionBar">
+
+        <item name="colorPrimary">@color/lavender</item>
+
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="colorPrimaryContainer">#DFE0FF</item>
+
+        <item name="colorOnPrimaryContainer">#000A64</item>
+
+        <item name="colorSecondary">#3A5BA9</item>
+
+        <item name="colorOnSecondary">#FFFFFF</item>
+
+        <item name="colorSecondaryContainer">#DAE2FF</item>
+
+        <item name="colorOnSecondaryContainer">#001847</item>
+
+        <item name="colorTertiary">#4D57A9</item>
+
+        <item name="colorOnTertiary">#FFFFFF</item>
+
+        <item name="colorTertiaryContainer">#DFE0FF</item>
+
+        <item name="colorOnTertiaryContainer">#000A63</item>
+
+        <item name="colorError">#BA1A1A</item>
+
+        <item name="colorOnError">#FFFFFF</item>
+
+        <item name="colorErrorContainer">#FFDAD6</item>
+
+        <item name="colorOnErrorContainer">#410002</item>
+
+        <item name="android:colorBackground">#FFFBFF</item>
+
+        <item name="colorOnBackground">#1B1B1F</item>
+
+        <item name="colorSurface">#FFFBFF</item>
+
+        <item name="colorOnSurface">#1B1B1F</item>
+
+        <item name="colorSurfaceVariant">#E3E1EC</item>
+
+        <item name="colorOnSurfaceVariant">#46464F</item>
+
+        <item name="colorOutline">#777680</item>
+
+        <item name="colorOutlineVariant">#FAEEEF</item>
+
+        <item name="colorOnSurfaceInverse">#F3F0F4</item>
+
+        <item name="colorSurfaceInverse">#303034</item>
+
+        <item name="colorPrimaryInverse">#BCC2FF</item>
+
+    </style>
+
+    <style name="Theme_Green2" parent="Theme.Translate.NoActionBar">
+        <item name="colorPrimary">@color/theme_green2_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_green2_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_green2_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_green2_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_green2_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_green2_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_green2_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_green2_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_green2_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_green2_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_green2_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_green2_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_green2_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_green2_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_green2_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_green2_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_green2_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_green2_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_green2_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_green2_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_green2_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_green2_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_green2_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_green2_light_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_theme_green2_light_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_green2_light_inversePrimary</item>
+
+    </style>
+
+
+    <style name="Theme.JIUR.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.JIUR.AppWidgetContainer" parent="Theme.JIUR.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">2dp</item>
+    </style>
+
+
+</resources>
