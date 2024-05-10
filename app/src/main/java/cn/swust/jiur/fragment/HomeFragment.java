@@ -65,6 +65,7 @@ import cn.swust.jiur.factory.MessageFactory;
 import cn.swust.jiur.impl.FunctionItemClickListener;
 import cn.swust.jiur.utils.AttributeUtils;
 import cn.swust.jiur.utils.FileUtil;
+import cn.swust.jiur.utils.ImageUtils;
 import cn.swust.jiur.utils.OkHttpUtil;
 import cn.swust.jiur.utils.SharedPreferenceUtil;
 import cn.swust.jiur.utils.SpinnerUtil;
@@ -331,7 +332,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         //TODO 40分钟刷新一次
         homeBinding.imgCodeLoad.startAnimation(animationFactory
                 .roatateAnim());
-        webViewCoc = homeBinding.startCodeWeb;
+        //webViewCoc = homeBinding.startCodeWeb;
         webSettings = webViewCoc.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);

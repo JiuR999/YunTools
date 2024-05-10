@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Widget.JIUR.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
+    android:orientation="vertical"
     android:theme="@style/Theme.JIUR.AppWidgetContainer">
 
     <TextView
@@ -10,15 +11,26 @@
         style="@style/Widget.JIUR.AppWidget.InnerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/margin_item"
+        android:layout_marginEnd="@dimen/margin_item"
         android:background="@drawable/btn"
         android:contentDescription="@string/appwidget_text"
         android:fontFamily="@font/mxj"
         android:gravity="center"
-        android:text="@string/analys"
+        android:text="@string/enter"
         android:textSize="24sp"
-        android:textStyle="bold|italic" />
-</RelativeLayout>
+        android:textStyle="bold" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_item"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/appwidget_img_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon"
+        android:layout_margin="@dimen/margin_item"
+        android:contentDescription="@string/appwidget_text" />
+</LinearLayout>

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:fitsSystemWindows="true">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -76,8 +75,7 @@
         android:layout_marginTop="246dp">
         <LinearLayout
             android:id="@+id/linear_tool"
-            style="@style/main_linear_style"
-            android:backgroundTint="@color/CustomColor3">
+            style="@style/main_linear_style">
             <ImageView
                 style="@style/img_function"
                 android:src="@drawable/twotone_business_center_24" />
@@ -88,8 +86,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linear_sport"
-            style="@style/main_linear_style"
-            android:backgroundTint="@color/CustomColor4">
+            style="@style/main_linear_style">
             <ImageView
                 style="@style/img_function"
                 android:src="@drawable/sport"/>
@@ -99,8 +96,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linear_coc"
-            style="@style/main_linear_style"
-            android:backgroundTint="@color/CustomColor7">
+            style="@style/main_linear_style">
             <ImageView
                 style="@style/img_function"
                 android:src="@drawable/shield"/>
@@ -122,9 +118,9 @@
             android:layout_height="match_parent"
             android:layout_below="@id/linear_top"
             android:layout_marginBottom="70dp"/>
-    <WebView
+<!--    <WebView
         android:id="@+id/start_code_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:visibility="gone"/>-->
 </RelativeLayout>

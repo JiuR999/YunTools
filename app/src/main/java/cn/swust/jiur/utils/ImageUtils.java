@@ -66,7 +66,7 @@ public class ImageUtils {
         this.context = context;
     }
 
-    public String imgToBase64(Bitmap bitmap) throws IOException {
+    public static String imgToBase64(Bitmap bitmap) throws IOException {
         int size = bitmap.getHeight() * bitmap.getWidth() * 4;
         byte[] bytes;
         ByteArrayOutputStream bout = new ByteArrayOutputStream(size);
@@ -78,7 +78,7 @@ public class ImageUtils {
         return base64;
     }
 
-    public Bitmap base64ToImg(String bs64) throws IOException {
+    public static Bitmap base64ToImg(String bs64) throws IOException {
         byte[] bytes = Base64.decode(bs64, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;
@@ -89,7 +89,7 @@ public class ImageUtils {
                 bitmap);
     }
 
-    public Bitmap drawableToBitmap(Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
         return ((BitmapDrawable) drawable).getBitmap();
     }
     public void downloadImage(String imageUrl) {
