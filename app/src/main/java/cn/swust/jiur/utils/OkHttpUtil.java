@@ -121,11 +121,8 @@ public class OkHttpUtil {
             return null;
         }
     }
-    public static JSONObject post(String url, Map<String,Object> params) throws IOException, JSONException {
-        FormBody.Builder builder = new FormBody.Builder();
-        for (String key : params.keySet()) {
-            builder.add(key, (String) params.get(key));
-        }
+    public static JSONObject post(String url, RequestBody body) throws IOException, JSONException {
+
 //        MultipartBody.Builder builder1 = new MultipartBody.Builder();
 //        for (String key : params.keySet()) {
 //            if(key.equals(MULTIPART_FORM_DATA) || key.equals(IMAGE)){
@@ -133,7 +130,7 @@ public class OkHttpUtil {
 //            }
 //            //builder1.add(key, (String) params.get(key));
 //        }
-        FormBody body = builder.build();
+        //FormBody body = builder.build();
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Content-Type","application/json;charset=utf-8")

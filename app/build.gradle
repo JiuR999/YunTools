@@ -84,8 +84,8 @@ dependencies {
     implementation 'io.noties.markwon:image:4.6.2'
     implementation 'io.noties.markwon:image-glide:4.6.2'
     implementation 'io.noties.markwon:html:4.5.0'
-    //下拉刷新
-    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.3'
-    implementation 'com.scwang.smart:refresh-header-classics:2.0.3'
+
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.6'      //核心必须依赖
+    implementation  'io.github.scwang90:refresh-header-classics:2.0.6'    //经典刷新头
 
 }

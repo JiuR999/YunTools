@@ -21,13 +21,22 @@
         android:layout_height="@dimen/icon_pro"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_item"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleview_flist"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/form_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner_home_level"
-        tools:listitem="@layout/coc_formation_item"
-        android:layout_marginTop="@dimen/home_btn_margin_bottom" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/spinner_home_level">
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlTextPulling="正在刷新"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_flist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/coc_formation_item"
+            android:layout_marginTop="@dimen/home_btn_margin_bottom" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"

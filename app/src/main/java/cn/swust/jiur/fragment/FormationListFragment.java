@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,11 +46,14 @@ import cn.swust.jiur.database.dao.FormDao;
 import cn.swust.jiur.databinding.FragmentFormationlistBinding;
 import cn.swust.jiur.databinding.UploadFormationBinding;
 import cn.swust.jiur.entity.Formation;
+import cn.swust.jiur.factory.DialogFactory;
 import cn.swust.jiur.factory.MessageFactory;
 import cn.swust.jiur.utils.KeyCheckHelper;
 import cn.swust.jiur.utils.OkHttpUtil;
 import cn.swust.jiur.utils.SharedPreferenceUtil;
+import cn.swust.jiur.utils.UpdateUtil;
 import cn.swust.jiur.utils.UriToFileUtil;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -58,6 +63,7 @@ import okhttp3.Response;
 
 public class FormationListFragment extends BaseFragment<FragmentFormationlistBinding>{
     public static final String HALL_LEVEL_SELECTION = "hall_level_selection";
+    private static final int UPLOAD_FORM = 1;
     private FragmentFormationlistBinding binding;
     private List<Formation> formationList;
     private ActivityResultLauncher<String> launcher;
@@ -69,6 +75,8 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
     private ImageView imageView;
     private Formation nformation;
     private UploadFormationBinding uploadFormationBinding;
+    private String key;
+    private String level = "7";
 
     @Override
     public void initData() {
@@ -77,7 +85,18 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
         initView();
         initSpinner();
         initHandler();
+        initRefresh();
         setPicSelectLauncher();
+    }
+
+    private void initRefresh() {
+        binding.formRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    getFormList(level);
+                    refreshLayout.finishRefresh(1000);
+            }
+        });
     }
 
     private void setPicSelectLauncher() {
@@ -88,7 +107,6 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
                         String path = UriToFileUtil.getRealPathFromUri(getContext()
                                 , result);
                         if (path != null) {
-
                             InputStream inputStream = null;
                             try {
                                 inputStream = getContext().getContentResolver().openInputStream(result);
@@ -106,8 +124,6 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
                                         .addFormDataPart("image", "test.png", RequestBody
                                                 .create(MediaType.parse("image/*"), file));
                                 Request request = new Request.Builder()
-                                        //.url("https://www.imgtp.com/api/upload")
-                                        //.url("http://50c58289.r16.cpolar.top/upload")
                                         .url("https://tucdn.wpon.cn/api/upload")
                                         .addHeader("Content-Type","multipart/form-data")
                                         .addHeader("Accept","*/*")
@@ -124,17 +140,24 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
                                             com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(response.body().string());
                                             if(jsonObject.getString("code").equals("200")){
                                                 String url = jsonObject.getJSONObject("data").getString("url");
-                                                getActivity().runOnUiThread(()->{
-                                                    Glide.with(getContext())
-                                                            .load(url)
-                                                            .into(imageView);
-                                                    Log.d(TAG + "照片Url",url);
-                                                });
+                                                if(url != null && url.startsWith("http")){
+                                                    nformation.setImg(url);
+                                                    getActivity().runOnUiThread(()->{
+                                                        Glide.with(getContext())
+                                                                .load(url)
+                                                                .placeholder(R.drawable.load_32)
+                                                                .into(imageView);
+                                                        uploadFormationBinding.submit.setVisibility(View.VISIBLE);
+                                                        Log.d(TAG + "照片Url",url);
+                                                    });
+                                                }
+                                            } else {
+                                                Toast.makeText(getContext(),jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                                             }
-
                                             //Log.d("阵型上传",response.body().string());
                                         } else {
-                                            Log.d("阵型上传失败",response.body().string());
+                                            Toast.makeText(getContext(), "阵型图片上传失败，请重试!", Toast.LENGTH_SHORT).show();
+                                            Log.d("阵型图片上传失败",response.body().string());
                                         }
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
@@ -166,7 +189,7 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String level = levels[position];
+                level = levels[position];
                 //String value = String.valueOf(Integer.valueOf(level));
                 SharedPreferenceUtil.save(getContext(), SharedPreferenceUtil.Type.INT,HomeFragment.M_CACHES
                         ,HALL_LEVEL_SELECTION,position);
@@ -209,20 +232,19 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what) {
-                    case RESULT_OK:
-                        Glide.with(getContext())
-                                .load(homeTallImg)
-                                .placeholder(R.drawable.load_32)
-                                .into(binding.imgHomeTall);
-                        if (recycleAdapter != null) {
-                            recycleAdapter.setFormationList(formationList);
-                        } else {
-                            initRecycleView();
-                        }
-                        break;
-                    default:
-                        break;
+                int cmd = msg.what;
+                if(cmd == RESULT_OK){
+                    Glide.with(getContext())
+                            .load(homeTallImg)
+                            .placeholder(R.drawable.load_32)
+                            .into(binding.imgHomeTall);
+                    if (recycleAdapter != null) {
+                        recycleAdapter.setFormationList(formationList);
+                    } else {
+                        initRecycleView();
+                    }
+                } else if (msg.what == UPLOAD_FORM){
+                    Toast.makeText(getContext(), (CharSequence) msg.obj, Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -240,12 +262,18 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
         formationList = new ArrayList<>();
         nformation = new Formation();
         binding.fabAdd.setOnClickListener(view -> {
-            addFormation();
+            key = (String) SharedPreferenceUtil.readData(getContext(), SharedPreferenceUtil.Type.STRING,
+                    MusicFragment.KEYFILENAME, "key");
+            if(key.isEmpty()){
+                DialogFactory.createInputKeyDialog(getContext()).show();
+            }else {
+                addFormation();
+            }
         });
     }
 
     /**.
-     * 打开相册.
+     * 增加阵型.
      */
     private void addFormation() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
@@ -283,10 +311,36 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
                         "阵型链接:" + hallTownLink);
                 nformation.setContent(hallTownInfo);
                 nformation.setLink(hallTownLink);
+                FormBody formBody = new FormBody.Builder()
+                        .add("level", String.valueOf(nformation.getLevel()))
+                        .add("link", nformation.getLink())
+                        .add("img", nformation.getImg())
+                        .add("content", nformation.getContent())
+                        .build();
                 //发起增加请求
-                KeyCheckHelper.checkKey(getContext(),key -> {
-
-                });
+                new Thread(()->{
+                    try {
+                        JSONObject post = OkHttpUtil.post(key + "/forms", formBody);
+                        String msg = null;
+                        if(post != null && post.optString("code").equals("200")){
+                            binding.formRefresh.autoRefresh(500);
+                            msg = "上传成功!";
+                            bottomSheetDialog.dismiss();
+                            Log.d(TAG+"增加阵型",post.toString());
+                        } else {
+                            msg = "上传失败，请重试!";
+                            Toast.makeText(getContext(), "上传失败 请重试!", Toast.LENGTH_SHORT).show();
+                        }
+                        handler.sendMessage(MessageFactory.newMessage(UPLOAD_FORM,msg));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
+//                KeyCheckHelper.checkKey(getContext(),key -> {
+//
+//                });
 
             }
         });

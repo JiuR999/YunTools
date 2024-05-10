@@ -36,19 +36,18 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,6 +71,10 @@ import cn.swust.jiur.utils.SpinnerUtil;
 import cn.swust.jiur.utils.UpdateUtil;
 import cn.swust.jiur.utils.WebViewUtil;
 import io.noties.markwon.Markwon;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements View.OnClickListener {
     public final static String PACGAGENAME_COC = "com.tencent.tmgp.supercell.clashofclans";
@@ -122,6 +125,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 //        updateUtil.isUpdate();
         registerClickEvent();
         initHandler();
+        //getSCode();
         initStartCode();
         //initHitokotoText();
         //检查更新
@@ -131,11 +135,33 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         homeBinding.imgCodeLoad.setVisibility(View.VISIBLE);
     }
 
+    private void getSCode() {
+        new Thread(()->{
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url("http://cocfz.com/")
+                    .get()
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                if(response.isSuccessful()){
+                    Document document = Jsoup.parse(response.body().string());
+                    Elements img = document.getElementsByTag("img");
+                    String src = img.get(1).attr("src");
+                    mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_HOMEFRAGMENT_START_CODE,src));
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }).start();
+    }
+
     private void ifTipUpdate() {
         String lastTipTime = (String) SharedPreferenceUtil.readData(getContext(), SharedPreferenceUtil.Type.STRING
                 ,M_CACHES,"lastTipUpdateTime");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(!lastTipTime.equals("")){
+            if(!"".equals(lastTipTime)){
                 LocalDateTime parse = LocalDateTime.parse(lastTipTime);
                 parse = parse.plusHours(3);
                 long milli = parse.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -177,14 +203,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
             String time = (String) SharedPreferenceUtil.readData(getContext(), SharedPreferenceUtil.Type.STRING,
                     M_CACHES, LAST_GET_CODE_TIME);
             if ("".equals(time)) {
-                getStartCode();
+                //getStartCode();
+                getSCode();
             } else {
                 long timestamp = LocalDateTime.parse(time)
                         .plusMinutes(45)
                         .atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
                 long timestampNow = System.currentTimeMillis();
                 if (timestamp < timestampNow) {
-                    getStartCode();
+                    //getStartCode();
+                    getSCode();
                     return;
                 }
                 cacheStartCode = (String) SharedPreferenceUtil.readData(getContext(), SharedPreferenceUtil.Type.STRING,
@@ -210,7 +238,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == MessageConstant.MSG_HOMEFRAGMENT_YIYAN) {
-                    if(msg.obj.toString()!= null && !msg.obj.toString().equals("")){
+                    if(msg.obj.toString()!= null && !"".equals(msg.obj.toString())){
                         homeBinding.hitokotoText.setText(msg.obj.toString());
                         if (cacheHikotoko == null || "".equals(cacheHikotoko)) {
                             SharedPreferenceUtil.save(getContext(), SharedPreferenceUtil.Type.STRING
@@ -233,13 +261,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                         Log.d(TAG, LocalTime.now().toString() + "存入缓存" + ver_img);
                     }
                     getBinding().imgStartCode.startAnimation(animationFactory.slideIn());
-                    GlideUrl url = new GlideUrl(ver_img, new LazyHeaders.Builder()
-                            .addHeader("Referer", HTTP_COCFZ_COM)
-                            .addHeader("Origin", HTTP_COCFZ_COM).build());
                     Glide.with(getContext())
-                            .load(url)
-                            .placeholder(R.drawable.twotone_terrain_24)
+                            .load(ver_img)
                             .into(getBinding().imgStartCode);
+
+//                    GlideUrl url = new GlideUrl(ver_img, new LazyHeaders.Builder()
+//                            .addHeader("Referer", HTTP_COCFZ_COM)
+//                            .addHeader("Origin", HTTP_COCFZ_COM).build());
+//                    Glide.with(getContext())
+//                            .load(url)
+//                            .placeholder(R.drawable.twotone_terrain_24)
+//                            .into(getBinding().imgStartCode);
                 } else if (msg.what == MessageConstant.MSG_HOMEFRAGMENT_SPORT_CODE) {
                     finishModify();
                     if (REQUEST_OK.equals(msg.obj.toString())) {
@@ -273,7 +305,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 mode = modes[i];
                 TextView view1 = (TextView) view;
                 if (view1 != null) {
-                    int colorPrimary = AttributeUtils.getAttrColor(getContext(), androidx.appcompat.R.attr.colorPrimary);
+                    int colorPrimary = AttributeUtils.getAttrColor(getContext(),android.R.attr.colorPrimary);
                     view1.setTextColor(colorPrimary);
                     view1.setGravity(Gravity.CENTER);
                 }
@@ -374,13 +406,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         imageView.startAnimation(new AnimationFactory(getContext()).roatateAnim());
         imageView.setVisibility(View.VISIBLE);
         String url = "https://api.pearktrue.cn/api/xiaomi/api.php";
-        Map<String,Object> params = new HashMap<>();
-        params.put("username",account);
-        params.put("password",pwd);
-        params.put("step",step);
+
+        FormBody body = new FormBody.Builder()
+                .add("username", account)
+                .add("password", pwd)
+                .add("step", step)
+                .build();
+
         new Thread(() -> {
             try {
-                org.json.JSONObject jsonObject = OkHttpUtil.post(url, params);
+                org.json.JSONObject jsonObject = OkHttpUtil.post(url, body);
                 String code = jsonObject.optString("code");
                 mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_HOMEFRAGMENT_SPORT_CODE, code));
                 Log.d("Step", code);
@@ -401,12 +436,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.img_start_code) {
-            if (webViewCoc != null) {
-                webViewCoc.evaluateJavascript("javascript:var v = document.getElementById('verImg').src;AndroidInterface.getValue(v);"
-                        , null);
-            } else {
-                getStartCode();
-            }
+            getSCode();
+//            if (webViewCoc != null) {
+//                webViewCoc.evaluateJavascript("javascript:var v = document.getElementById('verImg').src;AndroidInterface.getValue(v);"
+//                        , null);
+//            } else {
+//                getStartCode();
+//            }
         } else if (id == R.id.img_fresh) {
             startHikThread();
         } else if (id == R.id.linear_coc) {
@@ -434,7 +470,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         } else if (id == R.id.linear_sport) {
             //TODO 微信运动
             View view = LayoutInflater.from(getContext()).inflate(R.layout.sport_form,null);
-            sportDialog = DialogFactory.createCustomDialog(getContext(),"步数修改",view,false);
+            sportDialog = DialogFactory.createCustomDialog(getContext(),"步数修改",view);
             sportDialog.show();
             sportDialog.findViewById(R.id.img_sport_help).setOnClickListener(vHelp -> {
                 View helpView = LayoutInflater.from(getContext()).inflate(R.layout.sport_help, null);
@@ -442,7 +478,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 Markwon markwon = MarkwonFactory.creatWithImgMarkwon(getContext());
                 String help = FileUtil.readFromAssets(getContext(),"help.txt");
                 markwon.setMarkdown(tv,help);
-                Dialog helpDialog = DialogFactory.createCustomDialog(getContext(), "使用帮助", helpView, false);
+                Dialog helpDialog = DialogFactory.createCustomDialog(getContext(), "使用帮助", helpView);
                 //DialogFactory.setDialogWindow(getContext(), helpDialog, DialogFactory.SELF, 6, , false);
                 helpDialog.show();
             });

@@ -55,64 +55,65 @@ public class UpdateUtil {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void isUpdate(Handler handler) {
-//        key = (String) SharedPreferenceUtil.readData(context, SharedPreferenceUtil.Type.STRING,
-//                MusicFragment.KEYFILENAME, "key");
-        KeyCheckHelper.checkKey(context, new KeyHandler() {
-            @Override
-            public void handleKey(String key) {
-                JSONObject jsonObject =  OkHttpUtil.getData(key + vNamePath);
-
-                if (jsonObject != null) {
-                    newVersion = jsonObject.optString("data");
-                    try {
-                        String localVersion = getLocalVersion(context);
-                        Log.d("当前版本", localVersion);
-                        Log.d("最新版本", newVersion);
-                        if (!newVersion.equals(localVersion)) {
-                            //获取更新内容
-                            JSONObject jsonObject1 = OkHttpUtil.getData(key + updateContentPath);
-                            assert jsonObject1 != null;
-                            String updateContent = jsonObject1.optString("data");
-                            String content = "\n" + updateContent;
-                            handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_SHOW_UPDATE_DIALOG, content));
-                        } else {
-                            handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_NOT_UPDATE, null));
-                        }
-                    } catch (PackageManager.NameNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else {
-                    handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
-                }
-            }
-        });
-//        if (!key.isEmpty()) {
-//            JSONObject jsonObject =  OkHttpUtil.getData(key + vNamePath);
-//            JSONObject jsonObject1 = OkHttpUtil.getData(key + updateContentPath);
-//            if (jsonObject != null && jsonObject1 != null) {
-//                newVersion = jsonObject.optString("data");
-//                try {
-//                    String localVersion = getLocalVersion(context);
-//                    Log.d("当前版本", localVersion);
-//                    Log.d("最新版本", newVersion);
-//                    if (!newVersion.equals(localVersion)) {
-//                        //获取更新内容
-//                        String updateContent = jsonObject1.optString("data");
-//                        String content = "\n" + updateContent;
-//                        handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_SHOW_UPDATE_DIALOG, content));
-//                    } else {
-//                        handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_NOT_UPDATE, null));
+    public void isUpdate(Handler mHandler) {
+        key = (String) SharedPreferenceUtil.readData(context, SharedPreferenceUtil.Type.STRING,
+                MusicFragment.KEYFILENAME, "key");
+//        KeyCheckHelper.checkKey(context, new KeyHandler() {
+//            @Override
+//            public void handleKey(Handler handler,String key) {
+//                JSONObject jsonObject =  OkHttpUtil.getData(key + vNamePath);
+//
+//                if (jsonObject != null) {
+//                    newVersion = jsonObject.optString("data");
+//                    try {
+//                        String localVersion = getLocalVersion(context);
+//                        Log.d("当前版本", localVersion);
+//                        Log.d("最新版本", newVersion);
+//                        if (!newVersion.equals(localVersion)) {
+//                            //获取更新内容
+//                            JSONObject jsonObject1 = OkHttpUtil.getData(key + updateContentPath);
+//                            assert jsonObject1 != null;
+//                            String updateContent = jsonObject1.optString("data");
+//                            String content = "\n" + updateContent;
+//                            handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_SHOW_UPDATE_DIALOG, content));
+//                        } else {
+//                            handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_NOT_UPDATE, null));
+//                        }
+//                    } catch (PackageManager.NameNotFoundException e) {
+//                        throw new RuntimeException(e);
 //                    }
-//                } catch (PackageManager.NameNotFoundException e) {
-//                    throw new RuntimeException(e);
+//                } else {
+//                    mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
 //                }
-//            } else {
-//                handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
 //            }
-//        } else {
-//            handler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
-//        }
+//        },mHandler);
+
+        if (!key.isEmpty()) {
+            JSONObject jsonObject =  OkHttpUtil.getData(key + vNamePath);
+            JSONObject jsonObject1 = OkHttpUtil.getData(key + updateContentPath);
+            if (jsonObject != null && jsonObject1 != null) {
+                newVersion = jsonObject.optString("data");
+                try {
+                    String localVersion = getLocalVersion(context);
+                    Log.d("当前版本", localVersion);
+                    Log.d("最新版本", newVersion);
+                    if (!newVersion.equals(localVersion)) {
+                        //获取更新内容
+                        String updateContent = jsonObject1.optString("data");
+                        String content = "\n" + updateContent;
+                        mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_SHOW_UPDATE_DIALOG, content));
+                    } else {
+                        mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_NOT_UPDATE, null));
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
+            }
+        } else {
+            mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)

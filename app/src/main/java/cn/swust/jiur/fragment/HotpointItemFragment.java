@@ -1,6 +1,7 @@
 package cn.swust.jiur.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import cn.swust.jiur.R;
 import cn.swust.jiur.adapter.HotPointAdapter;
 import cn.swust.jiur.databinding.FragmentHotpointItemBinding;
 import cn.swust.jiur.entity.HotPoint;
+import cn.swust.jiur.factory.DialogFactory;
 import cn.swust.jiur.utils.FetchDataUtils;
 import cn.swust.jiur.viewmodel.JsonDataViewModle;
 
@@ -41,6 +43,7 @@ public class HotpointItemFragment extends Fragment {
     private FragmentHotpointItemBinding binding;
     private HotPointAdapter adapter;
     private JsonDataViewModle viewModle;
+    private Dialog dialog;
     public HotpointItemFragment(Context context) {
         // Required empty public constructor
         this.context = context;
@@ -82,6 +85,9 @@ public class HotpointItemFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dialog = DialogFactory.loadDialog(getContext());
+        dialog.setCancelable(false);
+        dialog.show();
         viewModle = new ViewModelProvider(this).get(JsonDataViewModle.class);
         viewModle.getCatagoryDatas().observe(this, new Observer<JSONObject>() {
             @Override
@@ -91,6 +97,7 @@ public class HotpointItemFragment extends Fragment {
                     adapter = new HotPointAdapter(hotPoint.getData(),getContext());
                     binding.recycleviewHotpoint.setAdapter(adapter);
                 }
+                dialog.dismiss();
             }
         });
 

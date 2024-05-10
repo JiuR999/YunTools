@@ -65,7 +65,7 @@ public class DialogFactory {
         TextInputLayout layout = view.findViewById(R.id.input_textfield);
         layout.setHint(hint);
         Dialog dialog = createCustomDialog(context,
-                "填写秘钥", view, false);
+                "填写秘钥", view);
         DialogFactory.setDialogWindow(context, dialog, DialogFactory.AUTO,
                 DialogFactory.AUTO, DialogFactory.AUTO, false);
         Button button = view.findViewById(R.id.btn_input_submit);
@@ -122,7 +122,7 @@ public class DialogFactory {
      * @param view    视图布局
      * @return
      */
-    public static Dialog createCustomDialog(Context context, String title, View view, boolean translate) {
+    public static Dialog createCustomDialog(Context context, String title, View view) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         if (!title.equals("")) {
             builder.setTitle(title);

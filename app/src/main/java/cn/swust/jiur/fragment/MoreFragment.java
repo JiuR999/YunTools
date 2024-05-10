@@ -85,7 +85,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding> implements V
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
 
-            Dialog dialog = DialogFactory.createCustomDialog(getActivity(),"选择主题" ,view1,false);
+            Dialog dialog = DialogFactory.createCustomDialog(getActivity(),"选择主题" ,view1);
             dialog.show();
 
         }
