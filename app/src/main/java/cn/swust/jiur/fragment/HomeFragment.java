@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -66,7 +65,6 @@ import cn.swust.jiur.factory.MessageFactory;
 import cn.swust.jiur.impl.FunctionItemClickListener;
 import cn.swust.jiur.utils.AttributeUtils;
 import cn.swust.jiur.utils.FileUtil;
-import cn.swust.jiur.utils.ImageUtils;
 import cn.swust.jiur.utils.OkHttpUtil;
 import cn.swust.jiur.utils.SharedPreferenceUtil;
 import cn.swust.jiur.utils.SpinnerUtil;
@@ -119,7 +117,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         homeBinding = getBinding();
         updateUtil = new UpdateUtil(context);
         animationFactory = new AnimationFactory(context);
-
         initSpinner();
 //        checkHasKey();
 //        updateUtil.isUpdate();
@@ -173,7 +170,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
     }
 
     private void ifTipUpdate() {
-        String lastTipTime = (String) SharedPreferenceUtil.readData(getContext(), SharedPreferenceUtil.Type.STRING
+        //是否开启每次进入提醒更新
+/*        String lastTipTime = (String) SharedPreferenceUtil.readData(getContext(), SharedPreferenceUtil.Type.STRING
                 ,M_CACHES,"lastTipUpdateTime");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if(!"".equals(lastTipTime)){
@@ -184,13 +182,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                     return;
                 }
             }
-        }
+        }*/
         new Thread(() -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(200);
                     updateUtil.isUpdate(mHandler);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException | IOException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -353,7 +351,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         webSettings.setJavaScriptEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-        webViewCoc.loadUrl(getResources().getString(R.string.ver_img));
+        webViewCoc.loadUrl(getResources().getString(R.string.url_ver_img));
         webViewCoc.addJavascriptInterface(new JavaScriptInterface(), "AndroidInterface");
         webViewCoc.setWebViewClient(new WebViewClient() {
             @Override
@@ -511,7 +509,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
             });
         } else if (id == R.id.linear_tool) {
             Intent intent = new Intent(getActivity(), WebActivity.class);
-            intent.putExtra("url", context.getResources().getString(R.string.woobx));
+            intent.putExtra("url", context.getResources().getString(R.string.url_woobx));
             intent.putExtra("tip", context.getResources().getString(R.string.woobx_tip));
             startActivity(intent);
             //设置过渡动画

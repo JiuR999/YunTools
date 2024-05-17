@@ -4,13 +4,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter4.BaseQuickAdapter;
 import com.chad.library.adapter4.QuickAdapterHelper;
@@ -62,7 +58,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
         adapter = new PictureAdapter();
         imageUtils = new ImageUtils(getContext());
         params = new HashMap<>();
-        baseAvatarUrl = getActivity().getResources().getString(R.string.service_avatar);
+        baseAvatarUrl = getActivity().getResources().getString(R.string.api_service_avatar);
         String profileId = PictureCategoryFragmentArgs.fromBundle(requireArguments())
                 .getProfileId();
         String profileCatName = PictureCategoryFragmentArgs.fromBundle(requireArguments())

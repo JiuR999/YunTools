@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -55,7 +56,11 @@ public class AboutFragment extends BaseFragment<FragmentAboutBinding> implements
         initHandler();
         new Thread(() -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                updateUtil.isUpdate(handler);
+                try {
+                    updateUtil.isUpdate(handler);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }).start();
         registerClickEvent();
@@ -128,7 +133,11 @@ public class AboutFragment extends BaseFragment<FragmentAboutBinding> implements
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 isAutoCheck = false;
                 new Thread(() -> {
-                    updateUtil.isUpdate(handler);
+                    try {
+                        updateUtil.isUpdate(handler);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }).start();
             }
         }

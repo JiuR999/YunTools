@@ -48,10 +48,8 @@ import cn.swust.jiur.databinding.UploadFormationBinding;
 import cn.swust.jiur.entity.Formation;
 import cn.swust.jiur.factory.DialogFactory;
 import cn.swust.jiur.factory.MessageFactory;
-import cn.swust.jiur.utils.KeyCheckHelper;
 import cn.swust.jiur.utils.OkHttpUtil;
 import cn.swust.jiur.utils.SharedPreferenceUtil;
-import cn.swust.jiur.utils.UpdateUtil;
 import cn.swust.jiur.utils.UriToFileUtil;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -206,7 +204,7 @@ public class FormationListFragment extends BaseFragment<FragmentFormationlistBin
     private void getFormList(String level) {
         new Thread(() -> {
             formationList.clear();
-            JSONObject jsonObject = OkHttpUtil.getData(getString(R.string.coc) + level);
+            JSONObject jsonObject = OkHttpUtil.getData(getString(R.string.api_coc) + level);
             try {
                 jsonObject = jsonObject.getJSONObject("data");
                 homeTallImg = jsonObject.optString("img");

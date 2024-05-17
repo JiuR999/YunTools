@@ -28,7 +28,7 @@ public class ArticleFragment extends BaseFragment<FragmentArticleBinding> {
     public void initData() {
         binding = getBinding();
         binding.materialTextView.setMovementMethod(new ScrollingMovementMethod());
-        baseUrl = getActivity().getResources().getString(R.string.my_base_url);
+        baseUrl = getActivity().getResources().getString(R.string.my_host);
         viewModel = new ViewModelProvider(this).get(ArticleViewModel.class);
         mainActivity = (MainActivity)getActivity();
         mainActivity.getMenu().findItem(R.id.item_toolbar_refresh).setVisible(true);

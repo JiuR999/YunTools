@@ -25,7 +25,10 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -55,7 +58,7 @@ public class UpdateUtil {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void isUpdate(Handler mHandler) {
+    public void isUpdate(Handler mHandler) throws IOException {
         key = (String) SharedPreferenceUtil.readData(context, SharedPreferenceUtil.Type.STRING,
                 MusicFragment.KEYFILENAME, "key");
 //        KeyCheckHelper.checkKey(context, new KeyHandler() {
@@ -87,19 +90,41 @@ public class UpdateUtil {
 //                }
 //            }
 //        },mHandler);
-
-        if (!key.isEmpty()) {
-            JSONObject jsonObject =  OkHttpUtil.getData(key + vNamePath);
-            JSONObject jsonObject1 = OkHttpUtil.getData(key + updateContentPath);
-            if (jsonObject != null && jsonObject1 != null) {
-                newVersion = jsonObject.optString("data");
+        String url = context.getResources().getString(R.string.api_version);
+        Document document = Jsoup.connect(url).get();
+        newVersion = document.getElementById("version").text();
+        String updateContent = document.getElementById("content").text();
+        updateContent = updateContent.replaceAll("L","\n");
+        if (newVersion != null && updateContent != null) {
+            try {
+                String localVersion = getLocalVersion(context);
+                Log.d("当前版本", localVersion);
+                Log.d("最新版本", newVersion);
+                if (!newVersion.equals(localVersion)) {
+                    //获取更新内容
+                    String content = "\n" + updateContent;
+                    mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_SHOW_UPDATE_DIALOG, content));
+                } else {
+                    mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_NOT_UPDATE, null));
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
+        }
+/*        if (!key.isEmpty()) {
+            String url = "https://jiur999.github.io/Mypages/";
+            Document document = Jsoup.connect(url).get();
+            newVersion = document.getElementById("version").text();
+            String updateContent = document.getElementById("content").text();
+            if (newVersion != null && updateContent != null) {
                 try {
                     String localVersion = getLocalVersion(context);
                     Log.d("当前版本", localVersion);
                     Log.d("最新版本", newVersion);
                     if (!newVersion.equals(localVersion)) {
                         //获取更新内容
-                        String updateContent = jsonObject1.optString("data");
                         String content = "\n" + updateContent;
                         mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_SHOW_UPDATE_DIALOG, content));
                     } else {
@@ -113,7 +138,7 @@ public class UpdateUtil {
             }
         } else {
             mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_UPDATE_INPUT_KEY, "秘钥已经过期或未输入秘钥"));
-        }
+        }*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -148,8 +173,7 @@ public class UpdateUtil {
 
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                840);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(8, 0, 8, 0);
         textView.setLayoutParams(layoutParams);
         //将TextView添加到LinearLayout中：
@@ -165,7 +189,10 @@ public class UpdateUtil {
                 .setPositiveButton("更新", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String url = key + "/download/JIUR_" + newVersion;
+                        String baseDownUrl = context.getResources().getString(R.string.url_down_apk);
+                        //String url = key + "/download/JIUR_" + newVersion;
+                        String url = baseDownUrl + newVersion +"/app-release.apk";
+                        Log.d("APP下载链接",url);
                         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
                         context.startActivity(intent);
 //                        new Thread(() -> {

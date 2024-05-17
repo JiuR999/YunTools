@@ -40,7 +40,7 @@ public class PictrueFragment extends BaseFragment<FragmentPictrueBinding>{
         if(type == JOKE){
             new Thread(()->{
                 String img = OkHttpUtil
-                        .getData(getString(R.string.neihan))
+                        .getData(getString(R.string.api_neihan))
                         .optString("data");
                 Log.d(TAG,img);
                 handler.sendMessage( MessageFactory.newMessage(JOKE,img));

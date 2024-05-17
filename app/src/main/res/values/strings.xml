@@ -1,19 +1,20 @@
 <resources>
     <string name="app_name">JIUR</string>
     <string name="enter">确定</string>
-    <string name="ver_img">http://aiwan.eatuo.com:88/</string>
+    <string name="url_ver_img">http://aiwan.eatuo.com:88/</string>
+    <string name="url_woobx">https://ol.woobx.cn/</string>
+    <string name="url_down_apk">https://gitee.com/jiur999/yun-tool/releases/download/v</string>
 
     <string name="api_analy_tik">https://api.pearktrue.cn/api/video/douyin/?url=</string>
     <string name="api_analy_bilib">https://api.pearktrue.cn/api/bilibili/parse.php?bvid=</string>
+    <string name="api_version">https://jiur999.github.io/Mypages/</string>
+    <string name="api_neihan">https://dayu.qqsuu.cn/neihanduanzi/apis.php?type=json</string>
+    <string name="api_coc">http://47.108.232.10:8080/forms/</string>
+    <string name="api_service_avatar">https://service.avatar.adesk.com/v1/avatar/avatar?</string>
 
-    <string name="woobx">https://ol.woobx.cn/</string>
-    <string name="my_base_url">http://47.108.232.10:8080</string>
-    <string name="service_avatar">https://service.avatar.adesk.com/v1/avatar/avatar?</string>
-    <string name="coc">http://47.108.232.10:8080/forms/</string>
+    <string name="my_host">http://47.108.232.10:8080</string>
     <string name="exter_path">/storage/emulated/0/JiuR/</string>
-    <string name="neihan">https://dayu.qqsuu.cn/neihanduanzi/apis.php?type=json</string>
     <!--主界面-->
-    <string name="btn_remove_bg">AI抠图</string>
     <string name="copy_to_game">复制进游戏</string>
     <string name="input__formation_link">请输入阵型链接</string>
 

@@ -62,6 +62,8 @@ import cn.swust.jiur.utils.PermissionUtil;
 
 public class AnalyVedioFragment extends BaseFragment<FragmentAnalytikBinding> implements View.OnClickListener {
     public static final String TAG = "AnalyVedioFragment";
+    public static final String ANALY_BILIBILI = "Bilibili解析";
+    public static final String ANALY_TIKTOK = "抖音解析";
     private final int REQUEST_CODE = 200;
     private Dialog loading;
     private FragmentAnalytikBinding binding;
@@ -91,7 +93,7 @@ public class AnalyVedioFragment extends BaseFragment<FragmentAnalytikBinding> im
         binding = getBinding();
 
         platform = AnalyVedioFragmentArgs.fromBundle(requireArguments()).getPlatform();
-        if(platform.equals("Bilibili解析")){
+        if(platform.equals(ANALY_BILIBILI)){
             binding.textInput.setHint("请输入视频BV号");
         }
         Log.d(TAG,platform);
@@ -177,10 +179,10 @@ public class AnalyVedioFragment extends BaseFragment<FragmentAnalytikBinding> im
                 Toast.makeText(getContext(), "请输入视频链接！", Toast.LENGTH_SHORT).show();
             } else {
                 if (NetworkUtil.isOpenNetwork(getContext())) {
-                    if(platform.equals("抖音解析")){
+                    if(platform.equals(ANALY_TIKTOK)){
                         analyTik();
-                    } else if (platform.equals("B站视频")) {
-analyBilibili();
+                    } else if (platform.equals(ANALY_BILIBILI)) {
+                        analyBilibili();
                     }
 
                 } else {
@@ -223,8 +225,6 @@ analyBilibili();
     private void downVideo() {
         // 如果已经授予了权限，则执行保存文件的操作
         imgLoad.setVisibility(View.GONE);
-        //progressBarLoad.setVisibility(View.VISIBLE);
-        //loading.show();
         DownloadUtil downloadUtil = new DownloadUtil(getContext());
         downloadUtil.downloadVideo(videoViewTik, date);
         isLoading = true;
@@ -271,10 +271,10 @@ analyBilibili();
             try {
                 JSONObject data = OkHttpUtil.getData(url);
                 if(data != null){
-                    if(platform.equals("抖音解析")){
+                    if(platform.equals(ANALY_TIKTOK)){
                         value = data.getJSONObject("data").optString("url");
                         Log.d("抖音视频链接", value);
-                    } else if (platform.equals("B站视频")) {
+                    } else if (platform.equals(ANALY_BILIBILI)) {
                         value = data.getJSONObject("data")
                                 .optJSONArray("videos")
                                 .getJSONObject(0)

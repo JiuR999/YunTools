@@ -46,7 +46,7 @@ public class FileActivity extends BaseActivity {
             selectFile(explorer1);
         });
         fileBinding.submit.setOnClickListener(view->{
-        OkHttpUtil.uploadFile(FileActivity.this,getString(R.string.my_base_url)+"/upload");
+        OkHttpUtil.uploadFile(FileActivity.this,getString(R.string.my_host)+"/upload");
             Toast.makeText(this, "文件已保存至"+getString(R.string.exter_path)+"different.xlsx", Toast.LENGTH_SHORT).show();
         });
     }
