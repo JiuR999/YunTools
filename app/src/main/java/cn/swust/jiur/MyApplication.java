@@ -6,6 +6,7 @@ import cn.swust.jiur.utils.SharedPreferenceUtil;
 import cn.swust.jiur.utils.mTrustManager;
 
 public class MyApplication extends Application {
+    public static final String THEME = "theme";
     private static MyApplication mApp;
     private int sCurrentTheme;
 
@@ -23,7 +24,7 @@ public class MyApplication extends Application {
 
     public void initTheme() {
         this.sCurrentTheme = (int) SharedPreferenceUtil.readData(this, SharedPreferenceUtil.Type.INT
-                , "theme", "theme");
+                , THEME, THEME);
         setTheme(sCurrentTheme);
     }
 

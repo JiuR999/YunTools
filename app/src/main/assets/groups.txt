@@ -14,7 +14,8 @@
         {"icon":"4","name":"阵型大全","fragmentId":"4"},
         {"icon":"5","name":"文件比对","fragmentId":"5"},
     		{"icon":"6","name":"抖音解析","fragmentId":"6"},
-    		{"icon":"10","name":"图集解析","fragmentId":"10"}
+    		{"icon":"10","name":"图集解析","fragmentId":"10"},
+    		{"icon":"12","name":"Bilibili解析","fragmentId":"12"}
       ]
     },
     {"groupName" : "娱乐",

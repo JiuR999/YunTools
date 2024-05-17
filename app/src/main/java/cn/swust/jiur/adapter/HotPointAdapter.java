@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import cn.swust.jiur.R;
-import cn.swust.jiur.databinding.RecycleviewHotpointBinding;
+
+import cn.swust.jiur.databinding.ItemHotpointBinding;
 import cn.swust.jiur.entity.HotPoint;
 
 public class HotPointAdapter extends RecyclerView.Adapter<HotPointAdapter.ViewHolder> {
@@ -26,7 +27,7 @@ public class HotPointAdapter extends RecyclerView.Adapter<HotPointAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycleview_hotpoint,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_hotpoint,parent,false);
 
         return new ViewHolder(view);
     }
@@ -44,10 +45,10 @@ public class HotPointAdapter extends RecyclerView.Adapter<HotPointAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        RecycleviewHotpointBinding binding;
+        ItemHotpointBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RecycleviewHotpointBinding.bind(itemView);
+            binding = ItemHotpointBinding.bind(itemView);
         }
     }
 }

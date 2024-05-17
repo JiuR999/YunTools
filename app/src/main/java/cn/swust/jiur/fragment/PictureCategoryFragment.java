@@ -29,6 +29,7 @@ import cn.swust.jiur.databinding.FragmentProfileCatagoryBinding;
 import cn.swust.jiur.entity.Profile;
 import cn.swust.jiur.utils.FetchDataUtils;
 import cn.swust.jiur.viewmodel.JsonDataViewModle;
+import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class PictureCategoryFragment extends BaseFragment<FragmentProfileCatagoryBinding> {
     public static final int SPAN_COUNT = 2;

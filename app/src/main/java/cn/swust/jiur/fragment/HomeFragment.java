@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.fastjson.JSON;
@@ -103,16 +104,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
     private UpdateUtil updateUtil;
     private NavController navController;
     private String cacheHikotoko;
-
-    //HomeFragmentDirections.ActionHomeToPictrue actionHomeToPictrue;
     private MainActivity mainActivity;
     private Dialog keyDialog;
 
     @Override
     public void initData() {
         homeBinding = getBinding();
-        navController = Navigation.findNavController(homeBinding.getRoot());
-        //actionHomeToPictrue = HomeFragmentDirections.actionHomeToPictrue();
+        //navController = Navigation.findNavController(getActivity(),R.id.nav_main_container);
+        NavHostFragment fragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_main_container);
+        navController = fragment.getNavController();
         mainActivity = (MainActivity) getActivity();
         initRecycleView();
         context = getContext();
@@ -120,7 +120,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         updateUtil = new UpdateUtil(context);
         animationFactory = new AnimationFactory(context);
 
-        mainActivity.setToolBarVisible(View.GONE);
         initSpinner();
 //        checkHasKey();
 //        updateUtil.isUpdate();
@@ -133,10 +132,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         ifTipUpdate();
         homeBinding.hitokotoText.setMovementMethod(new ScrollingMovementMethod());
         homeBinding.hitokotoText.setVerticalScrollBarEnabled(true);
-        homeBinding.imgCodeLoad.setVisibility(View.VISIBLE);
+        //homeBinding.imgCodeLoad.setVisibility(View.VISIBLE);
     }
 
     private void getSCode() {
+        homeBinding.imgStartCode.setVisibility(View.GONE);
+        homeBinding.imgCodeLoad.setVisibility(View.VISIBLE);
+        homeBinding.imgCodeLoad.startAnimation(animationFactory
+                .roatateAnim());
         new Thread(()->{
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -147,11 +150,22 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 Response response = client.newCall(request).execute();
                 if(response.isSuccessful()){
                     Document document = Jsoup.parse(response.body().string());
+                    //Elements img = document.select("/html/body/div[1]/img[2]");
                     Elements img = document.getElementsByTag("img");
-                    String src = img.get(1).attr("src");
+                    String src1 = img.get(0).attr("src");
+                    String src2 = img.get(0).attr("src");
+                    String src = src1.length() > src2.length() ? src1 : src2;
+                    String orc = "https://api.pearktrue.cn/api/captchaocr/";
+                    String substring = src.substring(src.indexOf(",")+1);
+                    FormBody body = new FormBody.Builder()
+                            .add("base64", substring)
+                            .build();
+                    OkHttpUtil.post(orc, body);
                     mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_HOMEFRAGMENT_START_CODE,src));
                 }
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
@@ -252,7 +266,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                     ver_img = msg.obj.toString();
                     homeBinding.imgCodeLoad.clearAnimation();
                     homeBinding.imgCodeLoad.setVisibility(View.GONE);
-                    getBinding().imgStartCode.setVisibility(View.VISIBLE);
+                    getBinding().imgStartCode.startAnimation(animationFactory.slideIn());
+                    homeBinding.imgStartCode.setVisibility(View.VISIBLE);
                     //TODO 缓存
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && cacheStartCode == null) {
                         SharedPreferenceUtil.save(getContext(), SharedPreferenceUtil.Type.STRING
@@ -261,7 +276,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                                 , M_CACHES, LAST_GET_CODE_TIME, LocalDateTime.now().toString());
                         Log.d(TAG, LocalTime.now().toString() + "存入缓存" + ver_img);
                     }
-                    getBinding().imgStartCode.startAnimation(animationFactory.slideIn());
                     Glide.with(getContext())
                             .load(ver_img)
                             .into(getBinding().imgStartCode);
@@ -330,6 +344,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
     public void getStartCode() {
         //TODO 40分钟刷新一次
+        homeBinding.imgStartCode.setVisibility(View.GONE);
+        homeBinding.imgStartCode.setVisibility(View.VISIBLE);
         homeBinding.imgCodeLoad.startAnimation(animationFactory
                 .roatateAnim());
         //webViewCoc = homeBinding.startCodeWeb;
@@ -382,17 +398,25 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         adapter.setItemClickListener(new FunctionItemClickListener() {
             @Override
             public void click(int fragmentId, String name) {
+
                 // 1 头像  2  壁纸
                 if(fragmentId == R.id.navigation_picture_category){
-                    HomeFragmentDirections.ActionHomeToProfileCategory actionHomeToProfileCategory =
-                            HomeFragmentDirections.actionHomeToProfileCategory();
-                    actionHomeToProfileCategory.setCategoryType(name);
-                    navController.navigate(actionHomeToProfileCategory);
+                    Bundle args = new HomeFragmentArgs.Builder()
+                            .setCategoryType(name)
+                                    .build().toBundle();
+                    navController.navigate(fragmentId,args);
+                } else if (fragmentId == R.id.navigation_analy_vedio) {
+                    Bundle args = new AnalyVedioFragmentArgs.Builder()
+                            .setPlatform(name)
+                            .build()
+                            .toBundle();
+                    navController.navigate(fragmentId,args);
                 } else {
                     navController.navigate(fragmentId);
                 }
-                ((MainActivity) getActivity()).setToolBarTitle(name);
-                ((MainActivity) getActivity()).setBottomBarVisible(View.GONE);
+                mainActivity.setToolBarVisible(View.VISIBLE);
+                mainActivity.setToolBarTitle(name);
+                //((MainActivity) getActivity()).setBottomBarVisible(View.GONE);
             }
         });
         adapter.submitList(groups);
@@ -447,8 +471,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         } else if (id == R.id.img_fresh) {
             startHikThread();
         } else if (id == R.id.linear_coc) {
-            //mainActivity.setBottomBarVisible(View.GONE);
-            //navController.navigate(R.id.navigation_copy_form);
+
             View view = View.inflate(getContext(),R.layout.dialog_input,null);
             EditText editUrl = view.findViewById(R.id.edit_input_text);
             view.findViewById(R.id.btn_input_submit).setOnClickListener(v2->{
@@ -487,12 +510,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 modifyStep(sportDialog);
             });
         } else if (id == R.id.linear_tool) {
-            mainActivity.setBottomBarVisible(View.GONE);
             Intent intent = new Intent(getActivity(), WebActivity.class);
             intent.putExtra("url", context.getResources().getString(R.string.woobx));
             intent.putExtra("tip", context.getResources().getString(R.string.woobx_tip));
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+            //设置过渡动画
+            //getActivity().overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
         }
 
     }
@@ -530,8 +553,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         super.onPause();
         Log.d("Home", "暂停");
 
-        mainActivity.setToolBarVisible(View.VISIBLE);
-
         if (webViewCoc != null) {
             webViewCoc.removeAllViews();
         }
@@ -541,8 +562,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
     @Override
     public void onResume() {
         super.onResume();
-        mainActivity.setToolBarVisible(View.GONE);
-        mainActivity.setBottomBarVisible(View.VISIBLE);
+        //mainActivity.setBottomBarVisible(View.VISIBLE);
         Log.d("Home", "恢复");
     }
 

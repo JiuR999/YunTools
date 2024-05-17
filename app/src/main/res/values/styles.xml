@@ -29,7 +29,6 @@
         <item name="itemTextColor">?attr/colorPrimary</item>
         <item name="labelVisibilityMode">selected</item>
         <item name="itemRippleColor">?attr/colorSecondaryContainer</item>
-        <item name="itemIconTint">@drawable/item_select</item>
         <item name="itemActiveIndicatorStyle">@style/Custom.Indicator</item>
     </style>
     <!--浮动文本样式-->
@@ -83,13 +82,14 @@
     <style name="main_function_text_style" parent="text_with_font_24">
         <item name="android:stateListAnimator">@animator/click_anim</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="img_function">
         <item name="android:layout_width">@dimen/midum_icon</item>
         <item name="android:layout_height">@dimen/midum_icon</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/margin_item</item>
     </style>
 
     <style name="music_time_text_style">

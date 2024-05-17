@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,27 +63,26 @@ public class PictureAnalyFragment extends BaseFragment<FragmentPictureAnalyBindi
             }
         });
         viewModle = new ViewModelProvider(this).get(JsonDataViewModle.class);
-        viewModle.getCatagoryDatas().observe(this, new Observer<JSONObject>() {
-            @Override
-            public void onChanged(JSONObject jsonObject) {
-                dialog.dismiss();
-                if (jsonObject != null) {
+        viewModle.getCatagoryDatas().observe(this, jsonObject -> {
+            dialog.dismiss();
+            if (jsonObject != null) {
 
-                    JSONArray images = jsonObject.optJSONArray("images");
-                    if (images != null) {
-                        List<String> list = JSON.parseArray(images.toString(), String.class);
-                        for (int i = 0; i < list.size(); i++) {
-                            Profile profile = new Profile();
-                            profile.setUrl(list.get(i));
-                            profile.setType("1");
-                            //Log.d()
-                            profiles.add(profile);
-                        }
-                        adapter.submitList(profiles);
+                JSONArray images = jsonObject.optJSONArray("images");
+                if (images != null) {
+                    List<String> list = JSON.parseArray(images.toString(), String.class);
+                    profiles.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        Profile profile = new Profile();
+                        profile.setUrl(list.get(i));
+                        profile.setType("1");
+                        //Log.d()
+                        profiles.add(profile);
                     }
-                } else {
-                    Toast.makeText(getContext(), "解析失败!", Toast.LENGTH_SHORT).show();
+                    adapter.addAll(profiles);
+                    adapter.submitList(profiles);
                 }
+            } else {
+                Toast.makeText(getContext(), "解析失败!", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -3,23 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/navigation_nhome">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="cn.swust.jiur.fragment.HomeFragment"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/to_more"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-        <action
-            android:id="@+id/action_home_to_pictrue"
-            app:destination="@id/navigation_picture"
-            >
-        </action>
+        <argument android:name="category_type"
+            app:argType="string"
+            android:defaultValue="壁纸库"/>
         <action
             android:id="@+id/action_home_to_profile_category"
             app:destination="@id/navigation_picture_category">
@@ -29,13 +21,17 @@
                 android:defaultValue="壁纸库"/>
         </action>
     </fragment>
-
+<fragment android:id="@+id/navigation_nhome"
+    android:name="cn.swust.jiur.fragment.NewHomeFragment"
+    tools:layout="@layout/fragment_new_home"/>
     <fragment
         android:id="@+id/navigation_more"
         android:name="cn.swust.jiur.fragment.MoreFragment"
-        tools:layout="@layout/fragment_more">
-
-    </fragment>
+        tools:layout="@layout/fragment_more"
+        app:enterAnim="@null"
+        app:exitAnim="@null"
+        app:popEnterAnim="@null"
+        app:popExitAnim="@null"/>
 
     <fragment
         android:id="@+id/navigation_hotpoint"
@@ -93,7 +89,11 @@
     <fragment
         android:id="@+id/navigation_analy_vedio"
         android:name="cn.swust.jiur.fragment.AnalyVedioFragment"
-        tools:layout="@layout/fragment_analytik"/>
+        tools:layout="@layout/fragment_analytik">
+        <argument android:name="platform"
+            app:argType="string"
+            android:defaultValue="抖音解析"/>
+    </fragment>
     <fragment
         android:id="@+id/navigation_picture_category"
         android:name="cn.swust.jiur.fragment.PictureCategoryFragment"

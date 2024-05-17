@@ -2,8 +2,11 @@
     style="@style/Widget.JIUR.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@drawable/radius"
+    android:backgroundTint="#98E2E9EF"
     android:orientation="vertical"
+    android:paddingStart="@dimen/margin_item"
+    android:paddingEnd="@dimen/margin_item"
     android:theme="@style/Theme.JIUR.AppWidgetContainer">
 
     <TextView
@@ -11,13 +14,12 @@
         style="@style/Widget.JIUR.AppWidget.InnerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_item"
-        android:layout_marginEnd="@dimen/margin_item"
         android:background="@drawable/btn"
+        android:layout_marginTop="@dimen/margin_item"
         android:contentDescription="@string/appwidget_text"
         android:fontFamily="@font/mxj"
         android:gravity="center"
-        android:text="@string/enter"
+        android:text="刷新"
         android:textSize="24sp"
         android:textStyle="bold" />
     <ProgressBar
@@ -31,6 +33,6 @@
         android:id="@+id/appwidget_img_start"
         android:layout_width="match_parent"
         android:layout_height="@dimen/icon"
-        android:layout_margin="@dimen/margin_item"
+        android:layout_marginTop="@dimen/margin_item"
         android:contentDescription="@string/appwidget_text" />
 </LinearLayout>

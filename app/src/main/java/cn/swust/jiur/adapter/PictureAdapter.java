@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +18,15 @@ import com.chad.library.adapter4.BaseQuickAdapter;
 import java.util.List;
 
 import cn.swust.jiur.R;
-import cn.swust.jiur.databinding.RecycleviewProfileItemBinding;
+import cn.swust.jiur.databinding.ItemProfileBinding;
 import cn.swust.jiur.entity.Profile;
 import cn.swust.jiur.utils.WindowUtils;
 
 public class PictureAdapter extends BaseQuickAdapter<Profile, PictureAdapter.ViewHolder>{
     public final static String PICASSO = "Picasso";
+    public static final int WALL_PAPER = 2;
+    public static final int AVATAR = 1;
+
     @Override
     protected void onBindViewHolder(@NonNull PictureAdapter.ViewHolder viewHolder, int i, @Nullable Profile profile) {
         //不要硬盘缓存
@@ -37,6 +39,7 @@ public class PictureAdapter extends BaseQuickAdapter<Profile, PictureAdapter.Vie
                 .apply(options)
                 .into(viewHolder.binding.imgProfileCover);
         if(profile.getCategoryName() != null){
+            // ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
             viewHolder.binding.tvProfileCatagoryName.setVisibility(View.VISIBLE);
             viewHolder.binding.tvProfileCatagoryName.setText(profile.getCategoryName());
         }
@@ -45,10 +48,11 @@ public class PictureAdapter extends BaseQuickAdapter<Profile, PictureAdapter.Vie
     @NonNull
     @Override
     protected PictureAdapter.ViewHolder onCreateViewHolder(@NonNull Context context, @NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycleview_profile_item,
+        View view = LayoutInflater.from(context).inflate(R.layout.item_profile,
                 viewGroup,false);
         int itemViewType = getItemViewType(i);
-        if(itemViewType == 2){
+
+        if(itemViewType == WALL_PAPER){
             view.getLayoutParams().width = (int) WindowUtils.dpToPx(context,180);
             view.getLayoutParams().height = (int) WindowUtils.dpToPx(context,300);
         }
@@ -57,14 +61,15 @@ public class PictureAdapter extends BaseQuickAdapter<Profile, PictureAdapter.Vie
 
     @Override
     protected int getItemViewType(int position, @NonNull List<? extends Profile> list) {
-        return list.get(position).getType() == null ? 1 : 2;
+        return list.get(position).getType() == null ? AVATAR : WALL_PAPER;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private RecycleviewProfileItemBinding binding;
+        private ItemProfileBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RecycleviewProfileItemBinding.bind(itemView);
+            binding = ItemProfileBinding.bind(itemView);
+
         }
     }
 }

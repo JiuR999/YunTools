@@ -1,8 +1,6 @@
 package cn.swust.jiur.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import cn.swust.jiur.R;
-import cn.swust.jiur.databinding.ThemeSelectItemBinding;
+
+import cn.swust.jiur.databinding.ItemThemeSelectBinding;
 import cn.swust.jiur.entity.Theme;
 import cn.swust.jiur.utils.SharedPreferenceUtil;
 
@@ -25,13 +24,13 @@ public class ThemeAdapter extends BaseAdapter<Theme,ThemeAdapter.ViewHolder>{
     @NonNull
     @Override
     public ThemeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.theme_select_item,null);
+        View view = View.inflate(context, R.layout.item_theme_select,null);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ThemeAdapter.ViewHolder holder, int position) {
-       ThemeSelectItemBinding binding = holder.binding;
+       ItemThemeSelectBinding binding = holder.binding;
        int selected = (int) SharedPreferenceUtil.readData(context, SharedPreferenceUtil.Type.INT
        ,"theme",key);
        if(position == selected){
@@ -46,10 +45,10 @@ public class ThemeAdapter extends BaseAdapter<Theme,ThemeAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ThemeSelectItemBinding binding;
+        ItemThemeSelectBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = ThemeSelectItemBinding.bind(itemView);
+            binding = ItemThemeSelectBinding.bind(itemView);
         }
     }
 }

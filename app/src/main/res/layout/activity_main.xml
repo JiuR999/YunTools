@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:collapsedTitleTextColor="?attr/colorOutline"
             app:collapsedTitleTextAppearance="@style/text_collapse_title"
+            app:collapsedTitleTextColor="?attr/colorOutline"
             app:contentScrim="?attr/colorSecondaryContainer"
             app:expandedTitleMarginStart="@dimen/margin_lr"
             app:expandedTitleTextAppearance="@style/text_expand_style"
@@ -41,33 +41,44 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_main_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:navGraph="@navigation/main_navigation" />
 
-<!--    <androidx.core.widget.NestedScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_main_container"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:navGraph="@navigation/main_navigation" />
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <!--<FrameLayout
+        android:id="@+id/blur"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_gravity="bottom"
-        app:itemActiveIndicatorStyle="@style/Custom.Indicator"
-        app:itemIconTint="@drawable/item_select"
-        app:itemRippleColor="@color/white"
-        app:itemTextColor="?attr/colorPrimary"
-        app:labelVisibilityMode="selected"
-        app:itemPaddingBottom="1dp"
-        app:menu="@menu/bottom_item_menu" />
-    <!--        android:background="#E6EEF9"-->
+        android:visibility="gone">
+
+        &lt;!&ndash;app:itemActiveIndicatorStyle="@style/Custom.Indicator"&ndash;&gt;
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/blurView"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:visibility="gone"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+
+            android:background="@android:color/transparent"
+            app:itemIconTint="@drawable/item_select"
+            app:itemPaddingBottom="1dp"
+            app:itemTextColor="?attr/colorPrimary"
+            app:labelVisibilityMode="labeled"
+            app:layout_anchor="@+id/blur"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/bottom_item_menu"
+            android:visibility="gone"/>
+    </FrameLayout>-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -32,11 +32,11 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding> implements V
     @Override
     public void initData() {
         FragmentMoreBinding binding = getBinding();
-        controller = Navigation.findNavController(binding.getRoot());
+        controller = Navigation.findNavController(getActivity(),R.id.nav_main_container);
+        //controller = Navigation.findNavController(binding.getRoot());
+        ((MainActivity)getActivity()).setToolBarVisible(View.GONE);
         binding.about.setOnClickListener(this);
         binding.layoutJoke.setOnClickListener(this);
-        ((MainActivity)getActivity()).setToolBarVisible(View.GONE);
-        ((MainActivity)getActivity()).setBottomBarVisible(View.VISIBLE);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding> implements V
         int id = view.getId();
         if(id == R.id.about){
             controller.navigate(R.id.navigation_about);
-            ((MainActivity)getActivity()).setBottomBarVisible(View.GONE);
+
             //startActivity(new Intent(getActivity(), AboutActivity.class));
 //            FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
 //            getActivity().getSupportFragmentManager().beginTransaction()

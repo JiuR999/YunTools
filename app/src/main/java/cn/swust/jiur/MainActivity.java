@@ -5,6 +5,8 @@ import static cn.swust.jiur.fragment.HomeFragment.M_CACHES;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,16 +34,16 @@ import cn.swust.jiur.fragment.MoreFragment;
 import cn.swust.jiur.impl.ItemRefreshClickListener;
 import cn.swust.jiur.utils.AttributeUtils;
 import cn.swust.jiur.utils.SharedPreferenceUtil;
+import eightbitlab.com.blurview.RenderEffectBlur;
+import eightbitlab.com.blurview.RenderScriptBlur;
 
 /**
  * @author JIUR
  */
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding mainBinding;
-
     private NavController controller;
     private final String TAG = "MainActivity";
-    private List<Fragment> fragments;
     private ItemRefreshClickListener itemRefreshClickListener;
     private Menu menu;
     @Override
@@ -48,17 +51,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
-        initFragment();
         initNavController();
-        initBottomNavigation();
         initToolBar();
-        //setToolBarBuilder();
     }
-    private void initFragment() {
-        fragments = new ArrayList<>();
-        fragments.add(new HomeFragment());
-        fragments.add(new MoreFragment());
-    }
+
     private void initToolBar() {
         setSupportActionBar(mainBinding.toolbar);
         mainBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -102,21 +98,20 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initBottomNavigation() {
-//        mainBinding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                int itemId = item.getItemId();
-//                if(itemId == R.id.navigation_more){
-////                    getSupportFragmentManager().beginTransaction()
-////                            .replace(R.id.nav_main_container,fragments.get(1))
-////                            .commit();
-//                    controller.navigate(R.id.navigation_more);
-//                } else {
-//                    controller.navigate(R.id.navigation_home);
-//                }
-//                return true;
-//            }
-//        });
+        float radius = 20f;
+        View decorView = getWindow().getDecorView();
+        // ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+        //ViewGroup rootView = decorView.findViewById(R.id.blur);
+
+        // Optional:
+        // Set drawable to draw in the beginning of each blurred frame.
+        // Can be used in case your layout has a lot of transparent space and your content
+        // gets a too low alpha value after blur is applied.
+        //Drawable windowBackground = decorView.getBackground();
+        /*mainBinding.blurView.setupWith(rootView,
+                (new RenderScriptBlur(this)))
+                .setBlurRadius(radius)
+                .setBlurAutoUpdate(true);*/
     }
 
     private void initNavController() {
@@ -127,26 +122,13 @@ public class MainActivity extends BaseActivity {
         //FixFragmentNavigator fixFragmentNavigator = new FixFragmentNavigator(this, getSupportFragmentManager(), fragment.getId());
         //controller.getNavigatorProvider().addNavigator(fixFragmentNavigator);
         //controller.setGraph(R.navigation.main_navigation);
-        NavigationUI.setupWithNavController(mainBinding.bottomNavigation,controller);
+
+        //NavigationUI.setupWithNavController(mainBinding.bottomNavigation,controller);
     }
     public void reLoad(){
         Intent intent = getIntent();
         finish();
         startActivity(intent);
-    }
-
-    /**
-     * 设置标题栏以及
-     * @param visible
-     */
-    public void setToolBarAndBottomBar(int visible){
-        if(visible == View.GONE){
-            mainBinding.toolbar.setVisibility(View.GONE);
-            mainBinding.bottomNavigation.setVisibility(View.VISIBLE);
-        } else {
-            mainBinding.toolbar.setVisibility(View.VISIBLE);
-            mainBinding.bottomNavigation.setVisibility(View.GONE);
-        }
     }
 
     public void setToolBarBuilder(String title, String subTitle){
@@ -179,11 +161,6 @@ public class MainActivity extends BaseActivity {
     public void setToolBarVisible(int visible){
         mainBinding.appbar.setVisibility(visible);
     }
-
-    public void setBottomBarVisible(int visible) {
-        mainBinding.bottomNavigation.setVisibility(visible);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();

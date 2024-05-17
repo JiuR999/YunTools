@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.swust.jiur.R;
-import cn.swust.jiur.databinding.RecycleviewHomeFunctionItemBinding;
+import cn.swust.jiur.databinding.ItemHomeFunctionBinding;
 import cn.swust.jiur.entity.FunctionGroup;
 
 /**
@@ -28,7 +28,7 @@ public class FunctionItemAdapter extends BaseQuickAdapter<FunctionGroup.Function
     @Override
     protected FunctionItemAdapter.ViewHolder onCreateViewHolder(@NonNull Context context, @NonNull ViewGroup viewGroup, int i) {
         return new ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.recycleview_home_function_item,viewGroup,false));
+                .inflate(R.layout.item_home_function,viewGroup,false));
     }
 
     @Override
@@ -48,21 +48,23 @@ public class FunctionItemAdapter extends BaseQuickAdapter<FunctionGroup.Function
         return Arrays.asList(R.id.navigation_today_of_history, R.id.navigation_picture, R.id.navigation_picture,
                 R.id.navigation_article, R.id.navigation_form_list, R.id.navigation_article,
                 R.id.navigation_analy_vedio, R.id.navigation_music,R.id.navigation_picture_category
-        ,R.id.navigation_wall_paper_category,R.id.navigation_analy_picture,R.id.navigation_hotpoint);
+        ,R.id.navigation_wall_paper_category,R.id.navigation_analy_picture,R.id.navigation_hotpoint
+        ,R.id.navigation_analy_vedio);
     }
 
     private List<Integer> getIcons() {
         List<Integer> icons = Arrays.asList(R.drawable.twotone_access_time_24,R.drawable.twotone_newspaper_24,R.drawable.joke,R.drawable.twotone_article_24,
                 R.drawable.form,R.drawable.excel,R.drawable.tiktok,R.drawable.twotone_music_note_24,
-                R.drawable.twotone_person_pin_24,R.drawable.twotone_wallpaper_24,R.drawable.small_red_book,R.drawable.twotone_newspaper_24);
+                R.drawable.twotone_person_pin_24,R.drawable.twotone_wallpaper_24,R.drawable.small_red_book,R.drawable.twotone_newspaper_24
+        ,R.drawable.bilibil);
         return icons;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        RecycleviewHomeFunctionItemBinding binding;
+        ItemHomeFunctionBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = RecycleviewHomeFunctionItemBinding.bind(itemView);
+            binding = ItemHomeFunctionBinding.bind(itemView);
         }
     }
 }

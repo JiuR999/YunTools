@@ -18,7 +18,8 @@ import com.chad.library.adapter4.BaseQuickAdapter;
 import java.util.Random;
 
 import cn.swust.jiur.R;
-import cn.swust.jiur.databinding.RecycleviewTodayOfHistoryItemBinding;
+
+import cn.swust.jiur.databinding.ItemTodayOfHistoryBinding;
 import cn.swust.jiur.entity.TodayOfHistory;
 
 public class TodayOfHistoryAdapter extends BaseQuickAdapter<TodayOfHistory, TodayOfHistoryAdapter.ViewHolder> {
@@ -43,7 +44,7 @@ public class TodayOfHistoryAdapter extends BaseQuickAdapter<TodayOfHistory, Toda
     @Override
     protected ViewHolder onCreateViewHolder(@NonNull Context context, @NonNull ViewGroup viewGroup, int i) {
 
-        View root = DataBindingUtil.bind(LayoutInflater.from(context).inflate(R.layout.recycleview_today_of_history_item, viewGroup, false)).getRoot();
+        View root = DataBindingUtil.bind(LayoutInflater.from(context).inflate(R.layout.item_today_of_history, viewGroup, false)).getRoot();
         int height = new Random(2).nextInt()+1;
         root.getLayoutParams().height = height * 160;
 
@@ -52,9 +53,9 @@ public class TodayOfHistoryAdapter extends BaseQuickAdapter<TodayOfHistory, Toda
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        RecycleviewTodayOfHistoryItemBinding binding;
+        ItemTodayOfHistoryBinding binding;
 
-        public ViewHolder(RecycleviewTodayOfHistoryItemBinding binding) {
+        public ViewHolder(ItemTodayOfHistoryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

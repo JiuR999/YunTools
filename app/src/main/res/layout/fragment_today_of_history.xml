@@ -20,5 +20,5 @@
         android:layout_marginTop="@dimen/margin_lr"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/recycleview_today_of_history_item" />
+        tools:listitem="@layout/item_today_of_history" />
 </LinearLayout>
