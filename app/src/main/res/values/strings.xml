@@ -4,7 +4,7 @@
     <string name="url_ver_img">http://aiwan.eatuo.com:88/</string>
     <string name="url_woobx">https://ol.woobx.cn/</string>
     <string name="url_down_apk">https://gitee.com/jiur999/yun-tool/releases/download/v</string>
-
+    <string name="url_update_sport">https://api.leafone.cn/api/misport</string>
     <string name="api_analy_tik">https://api.pearktrue.cn/api/video/douyin/?url=</string>
     <string name="api_analy_bilib">https://api.pearktrue.cn/api/bilibili/parse.php?bvid=</string>
     <string name="api_version">https://jiur999.github.io/Mypages/</string>

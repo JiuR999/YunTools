@@ -152,17 +152,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                     String src1 = img.get(0).attr("src");
                     String src2 = img.get(0).attr("src");
                     String src = src1.length() > src2.length() ? src1 : src2;
-                    String orc = "https://api.pearktrue.cn/api/captchaocr/";
+                    /*String orc = "https://api.pearktrue.cn/api/captchaocr/";
                     String substring = src.substring(src.indexOf(",")+1);
                     FormBody body = new FormBody.Builder()
                             .add("base64", substring)
                             .build();
-                    OkHttpUtil.post(orc, body);
+                    OkHttpUtil.post(orc, body);*/
                     mHandler.sendMessage(MessageFactory.newMessage(MessageConstant.MSG_HOMEFRAGMENT_START_CODE,src));
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
@@ -428,10 +426,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         //imageView.startAnimation(new AnimationFactory(getContext()).fadeInAnim());
         imageView.startAnimation(new AnimationFactory(getContext()).roatateAnim());
         imageView.setVisibility(View.VISIBLE);
-        String url = "https://api.pearktrue.cn/api/xiaomi/api.php";
-
+        //String url = "https://api.pearktrue.cn/api/xiaomi/api.php";
+        String url = getString(R.string.url_update_sport);
         FormBody body = new FormBody.Builder()
-                .add("username", account)
+                .add("user", account)
                 .add("password", pwd)
                 .add("step", step)
                 .build();

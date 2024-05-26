@@ -78,7 +78,7 @@ public class NewAppWidget extends AppWidgetProvider {
         views.setViewVisibility(R.id.progress_bar, View.VISIBLE);
         this.fetchDataTask.execute();
 
-        setAlarm(context,appWidgetId);
+        //setAlarm(context,appWidgetId);
         //appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 

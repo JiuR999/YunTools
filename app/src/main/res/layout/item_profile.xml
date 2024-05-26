@@ -25,6 +25,7 @@
         android:backgroundTint="#E2342F2F"
         android:gravity="center"
         android:text="个性女头"
+        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="12sp"
 
